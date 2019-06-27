@@ -6,7 +6,33 @@ class App extends React.Component {
             done: []
         };
         this.fromToDoToDone = this.fromToDoToDone.bind(this);
+        this.removeItemToDo = this.removeItemToDo.bind(this);
+        this.removeItemDone = this.removeItemDone.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    removeItemToDo(str) {
+        var index = 0;
+        for (var i = 0 ; i < this.state.toDoItem.length ; i++){
+            if (this.state.toDoItem[i] === str ){
+                index = i
+            }
+        }
+        this.state.toDoItem.splice(index, 1);
+        this.setState({
+            toDoItem: this.state.toDoItem
+        })
+    }
+    removeItemDone(str) {
+        var index = 0;
+        for (var i = 0 ; i < this.state.done.length ; i++){
+            if (this.state.done[i] === str ){
+                index = i
+            }
+        }
+        this.state.done.splice(index, 1);
+        this.setState({
+            done: this.state.done
+        })
     }
     fromToDoToDone(item) {
         this.state.done.push(item);
@@ -14,8 +40,7 @@ class App extends React.Component {
         this.setState({
             done: this.state.done
         });
-        var doneThingIndex = toDoItem.indexOf(item)
-        toDoItem.splice
+        
     }
     handleSubmit() {
         this.state.toDoItem.push(this.name.value)
@@ -36,11 +61,11 @@ class App extends React.Component {
                 </div>
                 <div className="toDoList">
                     <h4>To Do</h4>
-                    <List name="todo" design="todo-object" items={this.state.toDoItem} callingFromToDoToDone={this.fromToDoToDone}></List>
+                    <List name="todo" removeItem={this.removeItemToDo} design="todo-object" items={this.state.toDoItem} callingFromToDoToDone={this.fromToDoToDone}></List>
                 </div>
                 <div className="doneList">
                     <h4>Done</h4>
-                    <List name="done" design="done-object" items={this.state.done}></List>
+                    <List name="done" removeItem={this.removeItemDone} design="done-object" items={this.state.done}></List>
                 </div>
             </div>
         )
@@ -51,10 +76,6 @@ class List extends React.Component {
     constructor(props) {
         super(props);
         this.callingFromToDoToDone = this.callingFromToDoToDone.bind(this);
-        this.removeItem = this.removeItem.bind(this);
-    }
-    removeItem() {
-        this.props.removeItem(this.props.item);
     }
     callingFromToDoToDone(item) {
         this.props.callingFromToDoToDone(this.props.item)
@@ -66,7 +87,9 @@ class List extends React.Component {
             <ol>
                 <li>  {this.props.name}</li>
                 {
-                    this.props.items.map((item) => <Item className={this.props.design} item={item} callingFromToDoToDone={this.props.callingFromToDoToDone}></Item>)
+                    this.props.items.map((item) => 
+                    <Item removeItemToDo={this.props.removeItemToDo} removeItemDone={this.props.removeItemDone} className={this.props.design} item={item} 
+                    callingFromToDoToDone={this.props.callingFromToDoToDone}></Item>)
                 }
             </ol>
         )
@@ -77,20 +100,25 @@ class Item extends React.Component {
     constructor(props) {
         super(props);
         this.callingFromToDoToDone = this.callingFromToDoToDone.bind(this);
-        this.removeItem = this.removeItem.bind(this);
+        this.removeItemToDo = this.removeItemToDo.bind(this);
+        this.removeItemDone = this.removeItemDone.bind(this);
+    
     }
-    removeItem() {
-        this.props.removeItem(this.props.item);
+    removeItemToDo() {
+        this.props.removeItemToDo(this.props.item)
+    }
+    removeItemDone (){
+        this.props.removeItemDone(this.props.item)
+
     }
     callingFromToDoToDone() {
         this.props.callingFromToDoToDone(this.props.item);
-        console.log("yayone")
-
     }
     render() {
         return (
             <div className="itemStyle">
-                <li onClick={this.callingFromToDoToDone} className={this.props.design}>{this.props.item}</li><button onClick={this.removeItem}>Remove</button>
+                <li onClick={this.callingFromToDoToDone} className={this.props.design}>{this.props.item}</li>
+                <button onClick={this.removeItemToDo} onClick={this.removeItemDone}>Remove</button>
             </div>)
     }
 }
