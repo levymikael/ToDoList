@@ -5,7 +5,18 @@ class App extends React.Component {
             toDoItem: [],
             done: []
         };
+        this.fromToDoToDone = this.fromToDoToDone.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    fromToDoToDone(item) {
+        console.log("yay")
+        console.log(item)
+
+        this.state.done.push(item)
+        console.log(this.state.done)
+        this.setState({
+            done: this.state.done
+        })
     }
     handleSubmit() {
         this.state.toDoItem.push(this.name.value)
@@ -20,14 +31,13 @@ class App extends React.Component {
                 <div id="header">
                     <h4>To Do list</h4>
                 </div>
-
                 <div id="list">
                     <input id="inputField" ref={input => this.name = input} placeholder="You gotta do what you gotta do"></input>
                     <button id="inputBtn" onClick={this.handleSubmit}>ADD</button>
                 </div>
                 <div className="toDoList">
                     <h4>To Do</h4>
-                    <List name="todo" design="todo-object" items={this.state.toDoItem}></List>
+                    <List name="todo" design="todo-object" items={this.state.toDoItem} callingFromToDoToDone={this.fromToDoToDone}></List>
                 </div>
                 <div className="doneList">
                     <h4>Done</h4>
@@ -40,28 +50,38 @@ class App extends React.Component {
 
 class List extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
+        this.callingFromToDoToDone = this.callingFromToDoToDone.bind(this);
+    }
+    callingFromToDoToDone(item) {
+        this.props.callingFromToDoToDone(this.props.item)
+        console.log("yaytwo")
     }
     render() {
         return (
             <ol>
-                <li onClick={this.fromToDoToDone}>{this.props.name}</li>
+                <li>  {this.props.name}</li>
                 {
-                    this.props.items.map((item) => <Item className={this.props.design} item={item}></Item>)
+                    this.props.items.map((item) => <Item className={this.props.design} item={item} callingFromToDoToDone={this.props.callingFromToDoToDone}></Item>)
                 }
             </ol>
         )
     }
-
 }
 
 class Item extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
+        this.callingFromToDoToDone = this.callingFromToDoToDone.bind(this);
+    }
+    callingFromToDoToDone() {
+        this.props.callingFromToDoToDone(this.props.item);
+        console.log("yayone")
+
     }
     render() {
         return (
-            <li className={this.props.design}>{this.props.item}</li>
+            <li onClick={this.callingFromToDoToDone} className={this.props.design}>{this.props.item}</li>
         )
     }
 }
