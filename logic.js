@@ -9,14 +9,13 @@ class App extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     fromToDoToDone(item) {
-        console.log("yay")
-        console.log(item)
-
-        this.state.done.push(item)
-        console.log(this.state.done)
+        this.state.done.push(item);
+        console.log(this.state.done);
         this.setState({
             done: this.state.done
-        })
+        });
+        var doneThingIndex = toDoItem.indexOf(item)
+        toDoItem.splice
     }
     handleSubmit() {
         this.state.toDoItem.push(this.name.value)
@@ -52,10 +51,15 @@ class List extends React.Component {
     constructor(props) {
         super(props);
         this.callingFromToDoToDone = this.callingFromToDoToDone.bind(this);
+        this.removeItem = this.removeItem.bind(this);
+    }
+    removeItem() {
+        this.props.removeItem(this.props.item);
     }
     callingFromToDoToDone(item) {
         this.props.callingFromToDoToDone(this.props.item)
         console.log("yaytwo")
+
     }
     render() {
         return (
@@ -73,6 +77,10 @@ class Item extends React.Component {
     constructor(props) {
         super(props);
         this.callingFromToDoToDone = this.callingFromToDoToDone.bind(this);
+        this.removeItem = this.removeItem.bind(this);
+    }
+    removeItem() {
+        this.props.removeItem(this.props.item);
     }
     callingFromToDoToDone() {
         this.props.callingFromToDoToDone(this.props.item);
@@ -81,8 +89,9 @@ class Item extends React.Component {
     }
     render() {
         return (
-            <li onClick={this.callingFromToDoToDone} className={this.props.design}>{this.props.item}</li>
-        )
+            <div className="itemStyle">
+                <li onClick={this.callingFromToDoToDone} className={this.props.design}>{this.props.item}</li><button onClick={this.removeItem}>Remove</button>
+            </div>)
     }
 }
 

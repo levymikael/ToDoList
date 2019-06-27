@@ -30,6 +30,9 @@ form{
     font-size: 40px
 }
 
-.done-object{
+.doneList li{
     text-decoration: line-through;
+}
+.itemStyle{
+    display: flex
 }
