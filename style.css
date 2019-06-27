@@ -1,9 +1,21 @@
 body {
     background: rgb(67, 126, 182);
     font-family: 'Montserrat', sans-serif;
+    margin: 0
 }
 
-input{
+#header{
+    border: 5px black solid;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    font-size: xx-large;
+    margin-bottom: 25px
+}
+#list{
+    margin-left: 20px
+}
+#inputField{
     width: 400px;
     height: 50px;
     
@@ -17,4 +29,8 @@ form{
     margin-left: 20px;
     color: white;
     font-size: 40px
+}
+
+.done-object{
+    text-decoration: line-through;
 }
