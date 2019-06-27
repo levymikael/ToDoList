@@ -4,7 +4,7 @@ body {
     margin: 0
 }
 
-#header{
+#header {
     border: 5px white solid;
     height: 100px;
     display: flex;
@@ -12,27 +12,36 @@ body {
     font-size: xx-large;
     margin-bottom: 25px
 }
-#list{
-    margin-left: 20px
+
+#list {
+    margin-left: 25%;
 }
-#inputField{
+
+#inputField {
     width: 400px;
     height: 50px;
 }
 
-form{
+form {
     display: flex
 }
-#inputBtn{
+
+#inputBtn {
     border-radius: 10%;
     margin-left: 20px;
     color: white;
     font-size: 40px
 }
 
-.doneList li{
+#removeBtn {
+    height: 40px;
+    border: 0px
+}
+
+.doneList li {
     text-decoration: line-through;
 }
-.itemStyle{
+
+.itemStyle {
     display: flex
 }
