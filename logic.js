@@ -69,10 +69,10 @@ class App extends React.Component {
                     Note the activities you need to do.<br />
                     Once done, you can click on the activity to mark it as Done.<br />
                     If you need to remove it, click on the trash icon.<br />
-                    In case of an activity needs to be redone, click on the arrow icon to pass it back in the To Do section.<br/>
+                    In case of an activity needs to be redone, click on the arrow icon to pass it back in the To Do section.<br />
                     Enjoy!!
-                    
-                        </div>
+
+                </div>
                 <div id="list">
                     <div >
                         <input id="inputField" ref={input => this.name = input} placeholder="You gotta do what you gotta do"></input>
@@ -121,7 +121,7 @@ class List extends React.Component {
                     item={item}
                     callingFromToDoToDone={this.props.callingFromToDoToDone}
                     callingFromDoneto2Do={this.props.callingFromDoneto2Do} />
-            );
+                    );
         });
         return (
             <ol>
