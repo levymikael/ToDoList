@@ -4,9 +4,10 @@ class App extends React.Component {
         this.state = {
             toDoItem: [],
             done: [],
-            display : "block"
+            counter: 0
         };
         this.fromToDoToDone = this.fromToDoToDone.bind(this);
+        this.fromDoneTo2Do = this.fromDoneTo2Do.bind(this);
         this.removeItem = this.removeItem.bind(this);
         this.removeItem2 = this.removeItem2.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,15 +36,19 @@ class App extends React.Component {
             done: this.state.done
         })
     }
+    fromDoneTo2Do(item) {
+        this.state.toDoItem.push(item);
+        this.setState({
+            toDoItem: this.state.toDoItem
+        })
+        this.removeItem2();
+    }
     fromToDoToDone(item) {
         this.state.done.push(item);
-        // this.state.toDoItem.
-        console.log(this.state.done);
         this.setState({
             done: this.state.done,
-            display:"none"
         });
-
+        this.removeItem();
     }
     handleSubmit() {
         this.state.toDoItem.push(this.name.value)
@@ -59,15 +64,25 @@ class App extends React.Component {
                     <h4>To Do list</h4><img src="https://img.icons8.com/bubbles/100/000000/list.png" />
                 </div>
                 <div id="list">
-                    <input id="inputField" ref={input => this.name = input} placeholder="You gotta do what you gotta do"></input>
-                    <button id="inputBtn" onClick={this.handleSubmit}>Add</button>
+                    <span></span>
+                    <div>
+                        <input id="inputField" ref={input => this.name = input} placeholder="You gotta do what you gotta do"></input>
+                        <button id="inputBtn" onClick={this.handleSubmit}>Add</button>
+                    </div>
                     <div className="toDoList">
                         <h4>To Do</h4>
-                        <List removeItem={this.removeItem} style={{display :this.state.display}} design="todo-object" items={this.state.toDoItem} position={this.props.newKey} callingFromToDoToDone={this.fromToDoToDone}></List>
+                        <List removeItem={this.removeItem}
+                            design="todo-object"
+                            items={this.state.toDoItem}
+                            callingFromToDoToDone={this.fromToDoToDone} />
                     </div>
                     <div className="doneList">
                         <h4>Done</h4>
-                        <List removeItem={this.removeItem2} design="done-object" items={this.state.done}></List>
+                        <List removeItem={this.removeItem2} 
+                        design="done-object" 
+                        items={this.state.done} 
+                        callingFromDoneto2Do={this.fromDoneTo2Do}/>
+                        
                     </div>
                 </div>
             </div>
@@ -79,10 +94,13 @@ class List extends React.Component {
     constructor(props) {
         super(props);
         this.callingFromToDoToDone = this.callingFromToDoToDone.bind(this);
+        this.callingFromDoneto2Do = this.callingFromDoneto2Do.bind(this);
     }
     callingFromToDoToDone(item) {
-        this.props.callingFromToDoToDone(this.props.item)
-        console.log("yaytwo")
+        this.props.callingFromToDoToDone(this.props.item);
+    }
+    callingFromDoneto2Do(item) {
+        this.props.callingFromDoneto2Do(this.props.item);
     }
     render() {
         var test = this.props.items.map((item, index) => {
@@ -90,12 +108,12 @@ class List extends React.Component {
                 <Item
                     removeItem={this.props.removeItem}
                     removeItem2={this.props.removeItem}
-                    newKey={index}
+                    // newKey={index}
                     className={this.props.design}
                     item={item}
                     callingFromToDoToDone={this.props.callingFromToDoToDone}
-                    style = {this.props.style}>
-
+                    callingFromDoneto2Do={this.props.callingFromDoneto2Do}
+                >
                 </Item>
             );
         });
@@ -111,11 +129,9 @@ class Item extends React.Component {
     constructor(props) {
         super(props);
         this.callingFromToDoToDone = this.callingFromToDoToDone.bind(this);
+        this.callingFromDoneto2Do = this.callingFromDoneto2Do.bind(this);
         this.removeItem = this.removeItem.bind(this);
         this.removeItem2 = this.removeItem2.bind(this);
-        this.state={
-            hide: false
-        }
     }
     removeItem() {
         this.props.removeItem(this.props.item)
@@ -126,13 +142,16 @@ class Item extends React.Component {
     callingFromToDoToDone() {
         this.props.callingFromToDoToDone(this.props.item);
     }
+    callingFromDoneto2Do() {
+        this.props.callingFromDoneto2Do(this.props.item);
+    }
     render() {
-        
         return (
-            <div className="itemStyle" style={this.props.style}>
+            <div className="itemStyle">
                 <li onClick={this.callingFromToDoToDone} className={this.props.design}>{this.props.item}</li>
-                <img id="removeBtn" onClick={this.removeItem}src="https://img.icons8.com/clouds/100/000000/add-trash.png"/>
-             
+                <img id="removeBtn" onClick={this.removeItem} src="https://img.icons8.com/clouds/100/000000/add-trash.png" />
+                <img id="arrowUp" onClick={this.callingFromDoneto2Do} src="./img/arrow_up.png" />
+
             </div>)
     }
 }

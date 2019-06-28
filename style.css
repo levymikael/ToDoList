@@ -20,6 +20,7 @@ body {
 #inputField {
     width: 400px;
     height: 50px;
+    font-size: x-large
 }
 
 form {
@@ -29,13 +30,17 @@ form {
 #inputBtn {
     border-radius: 10%;
     margin-left: 20px;
-    color: white;
-    font-size: 40px
+    color: whitesmoke;
+    height: 50px;
+    font-size: larger
 }
 
 #removeBtn {
     height: 40px;
-    border: 0px
+}
+
+#arrowUp{
+    height: 40px;
 }
 
 .doneList li {
