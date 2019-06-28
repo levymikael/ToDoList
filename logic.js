@@ -63,9 +63,18 @@ class App extends React.Component {
                 <div id="header">
                     <h4>To Do list</h4><img src="https://img.icons8.com/bubbles/100/000000/list.png" />
                 </div>
+                <div id="instructions">
+                    <h2>Instructions:</h2>
+
+                    Note the activities you need to do.<br />
+                    Once done, you can click on the activity to mark it as Done.<br />
+                    If you need to remove it, click on the trash icon.<br />
+                    In case of an activity needs to be redone, click on the arrow icon to pass it back in the To Do section.<br/>
+                    Enjoy!!
+                    
+                        </div>
                 <div id="list">
-                    <span></span>
-                    <div>
+                    <div >
                         <input id="inputField" ref={input => this.name = input} placeholder="You gotta do what you gotta do"></input>
                         <button id="inputBtn" onClick={this.handleSubmit}>Add</button>
                     </div>
@@ -78,14 +87,14 @@ class App extends React.Component {
                     </div>
                     <div className="doneList">
                         <h4>Done</h4>
-                        <List removeItem={this.removeItem2} 
-                        design="done-object" 
-                        items={this.state.done} 
-                        callingFromDoneto2Do={this.fromDoneTo2Do}/>
-                        
+                        <List removeItem={this.removeItem2}
+                            design="done-object"
+                            items={this.state.done}
+                            callingFromDoneto2Do={this.fromDoneTo2Do} />
                     </div>
                 </div>
             </div>
+
         )
     }
 }
@@ -103,18 +112,15 @@ class List extends React.Component {
         this.props.callingFromDoneto2Do(this.props.item);
     }
     render() {
-        var test = this.props.items.map((item, index) => {
+        var test = this.props.items.map((item) => {
             return (
                 <Item
                     removeItem={this.props.removeItem}
                     removeItem2={this.props.removeItem}
-                    // newKey={index}
                     className={this.props.design}
                     item={item}
                     callingFromToDoToDone={this.props.callingFromToDoToDone}
-                    callingFromDoneto2Do={this.props.callingFromDoneto2Do}
-                >
-                </Item>
+                    callingFromDoneto2Do={this.props.callingFromDoneto2Do} />
             );
         });
         return (
@@ -151,7 +157,6 @@ class Item extends React.Component {
                 <li onClick={this.callingFromToDoToDone} className={this.props.design}>{this.props.item}</li>
                 <img id="removeBtn" onClick={this.removeItem} src="https://img.icons8.com/clouds/100/000000/add-trash.png" />
                 <img id="arrowUp" onClick={this.callingFromDoneto2Do} src="./img/arrow_up.png" />
-
             </div>)
     }
 }

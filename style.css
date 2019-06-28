@@ -12,6 +12,11 @@ body {
     font-size: xx-large;
     margin-bottom: 25px
 }
+#instructions{
+    margin-left: 10%;
+    margin-bottom: 100px;
+    color: white
+}
 
 #list {
     margin-left: 25%;
@@ -23,10 +28,13 @@ body {
     font-size: x-large
 }
 
+
 form {
     display: flex
 }
-
+h2{
+    text-decoration: underline
+}
 #inputBtn {
     border-radius: 10%;
     margin-left: 20px;
