@@ -5,7 +5,7 @@ body {
 }
 
 #header {
-    border: 5px white solid;
+    border-bottom: 5px white solid;
     height: 100px;
     display: flex;
     justify-content: center;
@@ -19,7 +19,7 @@ body {
 }
 
 #list {
-    margin-left: 25%;
+    margin-left: 33%;
 }
 
 #inputField {
